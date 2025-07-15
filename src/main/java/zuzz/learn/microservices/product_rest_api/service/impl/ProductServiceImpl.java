@@ -1,6 +1,7 @@
 package zuzz.learn.microservices.product_rest_api.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -34,14 +35,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, Product updateProduct) {
-        return productRepository.updateProduct(id,
-            updateProduct.getName(), updateProduct.getStock(), updateProduct.getCategory());
+    public Product updateProduct(Long id, ProductDto updateProduct) {
+        Optional<Product> productOptional = productRepository.findById(id);
+        
+        Product productDb = null;
+        if (productOptional.isPresent()) {
+            productDb = productOptional.get();
+            productDb.setName(updateProduct.getName());
+            productDb.setStock(updateProduct.getStock());
+            productDb.setCategory(updateProduct.getCategory());
+            productRepository.save(productDb);
+        }
+        return productDb;
     }
-
+    
     @Override
     public Product updateStock(Long id, Integer newStock) {
-        return productRepository.updateStockById(id, newStock);
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        Product productDb = null;
+        if (productOptional.isPresent()) {
+            productDb = productOptional.get();
+            productDb.setStock(newStock);
+            productRepository.save(productDb);
+        }
+
+        return productDb;
     }
 
     @Override

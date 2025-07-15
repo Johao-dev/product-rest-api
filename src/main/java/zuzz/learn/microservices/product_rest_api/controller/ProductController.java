@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import zuzz.learn.microservices.product_rest_api.persistence.entity.Product;
 import zuzz.learn.microservices.product_rest_api.service.ProductService;
 import zuzz.learn.microservices.product_rest_api.service.dto.ProductDto;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/products")
@@ -52,7 +54,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<Product> update(
         @PathVariable Long id,
-        @RequestBody Product updateProduct
+        @RequestBody ProductDto updateProduct
     ) {
         return ResponseEntity.ok(productService.updateProduct(id, updateProduct));
     }
@@ -63,7 +65,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);
         return ResponseEntity.ok().build();
     }
