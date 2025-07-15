@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import zuzz.learn.microservices.product_rest_api.mapper.ProductMapper;
 import zuzz.learn.microservices.product_rest_api.persistence.entity.Product;
@@ -20,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper mapper;
 
     @Override
-    public Product save(@NonNull ProductDto newProduct) {
+    public Product save(ProductDto newProduct) {
         return productRepository.save(mapper.toEntity(newProduct));
     }
 
@@ -35,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Product updateProduct) {
-        return productRepository.updateProduct(updateProduct.getId(),
+    public Product updateProduct(Long id, Product updateProduct) {
+        return productRepository.updateProduct(id,
             updateProduct.getName(), updateProduct.getStock(), updateProduct.getCategory());
     }
 

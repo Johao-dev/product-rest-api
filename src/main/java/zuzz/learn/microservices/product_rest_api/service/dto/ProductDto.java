@@ -10,12 +10,12 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductDto {
 
-    @NotBlank
+    @NotBlank(message = "The name field can not be null, empty or contains white space")
     String name;
 
-    @PositiveOrZero
+    @PositiveOrZero(message = "The stock field can not be negative")
     Integer stock;
 
-    @NotBlank
+    @NotBlank(message = "The category field can not be null, empty or contains white space")
     String category;
 }

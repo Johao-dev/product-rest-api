@@ -14,7 +14,7 @@ public interface ProductService {
 
     public List<Product> findAll();
 
-    public Product updateProduct(Product updateProduct);
+    public Product updateProduct(Long id, Product updateProduct);
 
     public Product updateStock(Long id, Integer newStock);
 
